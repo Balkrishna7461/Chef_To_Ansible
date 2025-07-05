@@ -1,0 +1,23 @@
+```yaml
+---
+# install_apache.rb equivalent Ansible playbook
+# This playbook installs Apache and ensures the service is running
+
+- name: Install and manage Apache
+  hosts: all # Or a specific group like 'webservers'
+  become: yes # Required for package installation and service management
+
+  tasks:
+    # Chef: package 'apache2' do action :install end
+    - name: Install Apache package
+      ansible.builtin.package:
+        name: apache2
+        state: present
+
+    # Chef: service 'apache2' do action [:enable, :start] end
+    - name: Ensure Apache service is running and enabled
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+```
